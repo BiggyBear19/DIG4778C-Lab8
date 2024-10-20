@@ -1,9 +1,10 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
 
-public class Target: MonoBehaviour
+public class Target: Subject
 {
     public int Health { get; private set; }
     public float Speed { get; private set; }
@@ -37,11 +38,36 @@ public class Target: MonoBehaviour
     {
         ScoreValue = scoreValue;
     }
+
+    void Start()
+    {
+        NotifyObservers(ScoreValue);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            this.Health -= 1;
+            
+        }
+    }
+
+
+    private void onDeath()
+    {
+        Destroy(this.gameObject);
+        
+    }
     
+
     //Standardized EnemyBehavior goes here
     void Update()
     {
-        //Movement
+        if (Health == 0)
+        {
+            onDeath();
+        }
     }
     
     
