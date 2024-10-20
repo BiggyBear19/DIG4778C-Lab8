@@ -9,10 +9,6 @@ public class ObjectPool : Projectile
     public List<GameObject> objectPool = new List<GameObject>();
     public GameObject projectilePrefab;
 
-    public Transform firingPoint;
-
-    public float projectileSpeed = 15f;
-
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -48,11 +44,22 @@ public class ObjectPool : Projectile
 
     public void ShootProjectile()
     {
-        for (int i = 0; i < objectPool.Count; i++)
+        // Loop through the object pool to find the first inactive projectile
+        foreach (GameObject projectile in objectPool)
         {
-              objectPool[i].SetActive(true);
-              //rgbd.linearVelocity = transform.up * projectileSpeed ;
+            if (!projectile.activeSelf) // If the projectile is inactive
+            {
+                projectile.SetActive(true); // Activate it
+                applyVelocity();
+                break; // Exit the loop after activating one projectile
+            }
         }
+    }
+
+    IEnumerator waitForDeactivate()
+    {
+        yield return new WaitForSeconds(5f);
+        DeactivateProjectile();
     }
 
     public void DeactivateProjectile()

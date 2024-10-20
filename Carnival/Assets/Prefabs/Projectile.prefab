@@ -176,3 +176,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPoolScript: {fileID: 0}
+  rgbd: {fileID: 0}
