@@ -9,6 +9,8 @@ public class Target: MonoBehaviour
     public float Speed { get; private set; }
     public Vector2 Startpoint { get; private set; }
     public Vector2 Endpoint { get; private set; }
+    
+    public int ScoreValue { get; private set; }
 
     public Target(int health)
     {
@@ -29,8 +31,18 @@ public class Target: MonoBehaviour
     {
         Endpoint = endpoint;
     }
+
+    public Target(int health, float speed, Vector2 startpoint, Vector2 endpoint, int scoreValue) : this(health, speed,
+        startpoint, endpoint)
+    {
+        ScoreValue = scoreValue;
+    }
     
     //Standardized EnemyBehavior goes here
+    void Update()
+    {
+        //Movement
+    }
     
     
     
@@ -40,6 +52,8 @@ public class Target: MonoBehaviour
         public float speed;
         public Vector2 start;
         public Vector2 end;
+        public int points;
+        // add scorevalue
 
         public TargetBuilder theHealth(int health)
         {
@@ -65,9 +79,33 @@ public class Target: MonoBehaviour
             return this;
         }
 
+        public TargetBuilder theScore(int scorevalue)
+        {
+            this.points = scorevalue;
+            return this;
+        }
+        
+        //overload the build or premake 2 enemy types with a build function
         public Target Build()
         {
-            return new Target(health, speed, start, end);
+            var target = new GameObject("Target").AddComponent<Target>();
+            target.Health = health;
+            target.Speed = speed;
+            target.Startpoint = start;
+            target.Endpoint = end;
+            target.ScoreValue = points;
+            return target;
+        }
+
+        public Target BuildRed()
+        {
+            var target = new GameObject("Target").AddComponent<Target>();
+            target.Health = 1;
+            target.Speed = 2f;
+            target.Startpoint = start;
+            target.Endpoint = end;
+            target.ScoreValue = 3;
+            return target;
         }
     
     
