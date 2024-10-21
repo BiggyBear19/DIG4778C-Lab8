@@ -9,6 +9,7 @@ public class ObjectPool : MonoBehaviour
     public List<GameObject> objectPool = new List<GameObject>();
     public GameObject projectilePrefab;
     public Transform firingPoint;
+    private float projectileSpeed = 8f;
 
     private void Awake()
     {
@@ -37,7 +38,6 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < 30; i++)
         {
             GameObject newProjectile = Instantiate(projectilePrefab);
-            //probably add impulse here
             objectPool.Add(newProjectile);
             newProjectile.SetActive(false);
         }
@@ -48,13 +48,18 @@ public class ObjectPool : MonoBehaviour
         // Loop through the object pool to find the first inactive projectile
         foreach (GameObject projectile in objectPool)
         {
-            if (!projectile.activeSelf) // If the projectile is inactive
+            if (!projectile.activeSelf) 
             {
                 projectile.transform.position = firingPoint.position;
-                projectile.SetActive(true); // Activate it
+                projectile.SetActive(true); 
+                Rigidbody2D rgbd = projectile.GetComponent<Rigidbody2D>();
+                if (rgbd != null)
+                {
+                    rgbd.linearVelocity = projectile.transform.up * projectileSpeed;
+                }
                 Debug.Log($"Activating {projectile.name}");
                 StartCoroutine(waitForDeactivate(projectile));
-                break; // Exit the loop after activating one projectile
+                break; 
             }
         }
     }
