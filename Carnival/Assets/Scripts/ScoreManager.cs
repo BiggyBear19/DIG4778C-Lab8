@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour, IObserver
+public class ScoreManager : MonoBehaviour //IObserver
 {
-   [SerializeField] private Subject target;
+   //[SerializeField] private Subject target;
    public Text scoreText;
    public int score = 0;
 
@@ -25,12 +25,12 @@ public class ScoreManager : MonoBehaviour, IObserver
 
    private void OnEnable()
    {
-      target.AddObserver(this);
+      //target.AddObserver(this);
    }
 
    private void OnDisable()
    {
-      target.RemoveObserver(this);
+     // target.RemoveObserver(this);
    }
 
    public void Notify()

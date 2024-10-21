@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1650586342369002759}
   - component: {fileID: 8455626126764439257}
-  - component: {fileID: 584355375121863120}
   - component: {fileID: 1926357974864971118}
+  - component: {fileID: 532348425856957264}
   m_Layer: 0
   m_Name: Orc Target
   m_TagString: Untagged
@@ -89,18 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &584355375121863120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4996215993786763196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94b8137160eb8464ab58f08ab9a742a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &1926357974864971118
 Rigidbody2D:
   serializedVersion: 5
@@ -128,3 +116,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &532348425856957264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4996215993786763196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f7b0fafb88e11d4aa413761e72b834b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
+  scorevalue: 3
+  player: {fileID: 8704569540973468706, guid: d30735141345f014d892d09d68754d85, type: 3}
