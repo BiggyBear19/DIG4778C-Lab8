@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : Projectile
+public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool instance;
 
     public List<GameObject> objectPool = new List<GameObject>();
     public GameObject projectilePrefab;
+    public Transform firingPoint;
 
     private void Awake()
     {
@@ -49,21 +50,26 @@ public class ObjectPool : Projectile
         {
             if (!projectile.activeSelf) // If the projectile is inactive
             {
+                projectile.transform.position = firingPoint.position;
                 projectile.SetActive(true); // Activate it
-                applyVelocity();
+                Debug.Log($"Activating {projectile.name}");
+                StartCoroutine(waitForDeactivate(projectile));
                 break; // Exit the loop after activating one projectile
             }
         }
     }
 
-    IEnumerator waitForDeactivate()
+    IEnumerator waitForDeactivate(GameObject projectile)
     {
         yield return new WaitForSeconds(5f);
-        DeactivateProjectile();
+        if (projectile.activeSelf) projectile.SetActive(false);
+
+        Debug.Log("Coroutining");
     }
 
     public void DeactivateProjectile()
     {
         projectilePrefab.SetActive(false);
+        Debug.Log("Deactivating projectile");
     }
 }

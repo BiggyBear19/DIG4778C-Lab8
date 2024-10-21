@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
     {
         objectPoolScript = FindFirstObjectByType<ObjectPool>();
         rgbd = GetComponent<Rigidbody2D>();
+        applyVelocity();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -25,12 +26,9 @@ public class Projectile : MonoBehaviour
 
     public void applyVelocity()
     {
-        this.transform.position = firingPoint.position; // Set it at the firing point
-        GetComponent<Rigidbody>().linearVelocity = firingPoint.up * projectileSpeed; // Set velocity
+        //this.transform.position = firingPoint.position; // Set it at the firing point
+        //GetComponent<Rigidbody>().linearVelocity = firingPoint.up * projectileSpeed; // Set velocity
     }
 
-    IEnumerator deactivateTimer()
-    {
-        new WaitForSeconds(4f);
-    }
+
 }
