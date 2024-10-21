@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : Projectile
+public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool instance;
 
     public List<GameObject> objectPool = new List<GameObject>();
     public GameObject projectilePrefab;
+    public Transform firingPoint;
+    private float projectileSpeed = 8f;
 
     private void Awake()
     {
@@ -36,7 +38,6 @@ public class ObjectPool : Projectile
         for (int i = 0; i < 30; i++)
         {
             GameObject newProjectile = Instantiate(projectilePrefab);
-            //probably add impulse here
             objectPool.Add(newProjectile);
             newProjectile.SetActive(false);
         }
@@ -47,23 +48,33 @@ public class ObjectPool : Projectile
         // Loop through the object pool to find the first inactive projectile
         foreach (GameObject projectile in objectPool)
         {
-            if (!projectile.activeSelf) // If the projectile is inactive
+            if (!projectile.activeSelf) 
             {
-                projectile.SetActive(true); // Activate it
-                applyVelocity();
-                break; // Exit the loop after activating one projectile
+                projectile.transform.position = firingPoint.position;
+                projectile.SetActive(true); 
+                Rigidbody2D rgbd = projectile.GetComponent<Rigidbody2D>();
+                if (rgbd != null)
+                {
+                    rgbd.linearVelocity = projectile.transform.up * projectileSpeed;
+                }
+                Debug.Log($"Activating {projectile.name}");
+                StartCoroutine(waitForDeactivate(projectile));
+                break; 
             }
         }
     }
 
-    IEnumerator waitForDeactivate()
+    IEnumerator waitForDeactivate(GameObject projectile)
     {
         yield return new WaitForSeconds(5f);
-        DeactivateProjectile();
+        if (projectile.activeSelf) projectile.SetActive(false);
+
+        Debug.Log("Coroutining");
     }
 
     public void DeactivateProjectile()
     {
         projectilePrefab.SetActive(false);
+        Debug.Log("Deactivating projectile");
     }
 }
