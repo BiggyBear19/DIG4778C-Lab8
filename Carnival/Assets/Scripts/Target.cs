@@ -8,8 +8,6 @@ public class Target: Subject
 {
     public int Health { get; private set; }
     public float Speed { get; private set; }
-    public Vector2 Startpoint { get; private set; }
-    public Vector2 Endpoint { get; private set; }
     
     public int ScoreValue { get; private set; }
 
@@ -22,26 +20,15 @@ public class Target: Subject
     {
         Speed = speed;
     }
-    
-    public Target(int health, float speed, Vector2 startpoint) : this(health, speed)
-    {
-        Startpoint = startpoint;
-    }
-    
-    public Target(int health, float speed, Vector2 startpoint, Vector2 endpoint) : this(health, speed, startpoint)
-    {
-        Endpoint = endpoint;
-    }
 
-    public Target(int health, float speed, Vector2 startpoint, Vector2 endpoint, int scoreValue) : this(health, speed,
-        startpoint, endpoint)
+    public Target(int health, float speed, int scoreValue) : this(health, speed)
     {
         ScoreValue = scoreValue;
     }
 
     void Start()
     {
-        NotifyObservers(ScoreValue);
+       // NotifyObservers(ScoreValue);
     }
 
     private void OnCollisionEnter(Collision other)
@@ -54,7 +41,7 @@ public class Target: Subject
     }
 
 
-    private void onDeath()
+    private void OnDeath()
     {
         Destroy(this.gameObject);
         
@@ -66,7 +53,7 @@ public class Target: Subject
     {
         if (Health == 0)
         {
-            onDeath();
+            OnDeath();
         }
     }
     
@@ -76,8 +63,6 @@ public class Target: Subject
     {
         public int health;
         public float speed;
-        public Vector2 start;
-        public Vector2 end;
         public int points;
         // add scorevalue
 
@@ -90,18 +75,6 @@ public class Target: Subject
         public TargetBuilder theSpeed(float speed)
         {
             this.speed = speed;
-            return this;
-        }
-    
-        public TargetBuilder theStart(Vector2 start)
-        {
-            this.start = start;
-            return this;
-        }
-    
-        public TargetBuilder theEnd(Vector2 end)
-        {
-            this.end = end;
             return this;
         }
 
@@ -117,24 +90,42 @@ public class Target: Subject
             var target = new GameObject("Target").AddComponent<Target>();
             target.Health = health;
             target.Speed = speed;
-            target.Startpoint = start;
-            target.Endpoint = end;
             target.ScoreValue = points;
             return target;
         }
 
-        public Target BuildRed()
+        public Target BuildCrab()
         {
             var target = new GameObject("Target").AddComponent<Target>();
             target.Health = 1;
-            target.Speed = 2f;
-            target.Startpoint = start;
-            target.Endpoint = end;
-            target.ScoreValue = 3;
+            target.Speed = 3f;
+            target.ScoreValue = 1;
             return target;
+            
+            
         }
     
-    
+        public Target BuildOrc()
+        {
+            var target = new GameObject("Target").AddComponent<Target>();
+            target.Health = 2;
+            target.Speed = 2f;
+            target.ScoreValue = 3;
+            return target;
+            
+            
+        }
+        
+        public Target BuildSkeleton()
+        {
+            var target = new GameObject("Target").AddComponent<Target>();
+            target.Health = 1;
+            target.Speed = 3f;
+            target.ScoreValue = 2;
+            return target;
+            
+            
+        }
     }       
 }
 

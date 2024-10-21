@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour, IObserver
 
    private void Start()
    {
-      scoreText.text = score.ToString() + " :Points";
+      //scoreText.text = score.ToString() + " :Points";
    }
 
    private void AddScore()

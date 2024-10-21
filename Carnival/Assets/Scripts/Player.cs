@@ -18,11 +18,7 @@ public class Player : MonoBehaviour
     {
         speedx = Input.GetAxisRaw("Horizontal") * speed;
         rb.linearVelocityX = speedx;
-
-        if (Input.GetButton("space"))
-        {
-            
-        }
+        
     }
 
     //shooting
