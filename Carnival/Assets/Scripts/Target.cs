@@ -1,77 +1,69 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.PlayerLoop;
 
-public class Target: MonoBehaviour
+public class Target : MonoBehaviour
 {
-    public int Health { get; private set; }
-    public float Speed { get; private set; }
-    public Vector2 Startpoint { get; private set; }
-    public Vector2 Endpoint { get; private set; }
+    public int health { get; private set; }
+    public float speed { get; private set; }
+    public int scoreValue { get; private set; }
+    public GameObject prefab { get; private set; }
 
-    public Target(int health)
-    {
-        Health = health;
-    }
+   //Target Behavior
+    
+   void Start()
+   {
+       
+   }
 
-    public Target(int health, float speed) : this(health)
-    {
-        Speed = speed;
-    }
-    
-    public Target(int health, float speed, Vector2 startpoint) : this(health, speed)
-    {
-        Startpoint = startpoint;
-    }
-    
-    public Target(int health, float speed, Vector2 startpoint, Vector2 endpoint) : this(health, speed, startpoint)
-    {
-        Endpoint = endpoint;
-    }
-    
-    //Standardized EnemyBehavior goes here
-    
-    
-    
-    public class TargetBuilder : MonoBehaviour
-    {
-        public int health;
-        public float speed;
-        public Vector2 start;
-        public Vector2 end;
+   void Update()
+   {
+       
+   }
 
-        public TargetBuilder theHealth(int health)
+
+   //Builder Function Below
+    
+    public class TargetBuilder
+    {
+        int health;
+        float speed;
+        int scorevalue;
+        GameObject prefab;
+
+
+        public TargetBuilder withHP(int health)
         {
             this.health = health;
             return this;
         }
-    
-        public TargetBuilder theSpeed(float speed)
+
+        public TargetBuilder withSpeed(float speed)
         {
             this.speed = speed;
             return this;
         }
-    
-        public TargetBuilder theStart(Vector2 start)
+
+        public TargetBuilder withScore(int scoreValue)
         {
-            this.start = start;
+            this.scorevalue = scorevalue;
             return this;
         }
-    
-        public TargetBuilder theEnd(Vector2 end)
+
+        public TargetBuilder withGameObject(GameObject prefab)
         {
-            this.end = end;
+            this.prefab = prefab;
             return this;
         }
 
         public Target Build()
         {
-            return new Target(health, speed, start, end);
+            var target = new GameObject("Target").AddComponent<Target>();
+            target.health = health;
+            target.speed = speed;
+            target.scoreValue = scorevalue;
+            target.prefab = prefab;
+            return target;
         }
-    
-    
-    }       
+
+    }
 }
-
-
