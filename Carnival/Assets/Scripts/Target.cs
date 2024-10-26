@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Target : MonoBehaviour
@@ -9,7 +10,7 @@ public class Target : MonoBehaviour
     public GameObject prefab { get; private set; }
 
    //Target Behavior
-    
+   // Setting up the GameManager for saving and 
    void Start()
    {
        
@@ -63,6 +64,18 @@ public class Target : MonoBehaviour
             target.scoreValue = scorevalue;
             target.prefab = prefab;
             return target;
+        }
+
+        public Target BuildOrc()
+        {
+            var Orc = new GameObject("Target").AddComponent<Target>();
+            Orc.AddComponent<Rigidbody2D>().gravityScale.Equals(0);
+            Orc.AddComponent<SpriteRenderer>();
+            Orc.health = 2;
+            Orc.speed = 4;
+            Orc.scoreValue = 2;
+            Orc.prefab = prefab;
+            return Orc;
         }
 
     }

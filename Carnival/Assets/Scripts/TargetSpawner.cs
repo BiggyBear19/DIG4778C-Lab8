@@ -8,16 +8,17 @@ using Random = System.Random;
 public class TargetSpawner : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public GameObject[] bases;
+    public GameObject Orc;
+    public GameObject Skeleton;
+    public GameObject Crab;
 
     private float spawn_timer = 2f;
     
+    //this works i just need to add in the timer and set up precongfigured build options
     void Start()
     {
 
-        //Target.TargetBuilder target = new Target.TargetBuilder().withHP(3).withScore(2).withSpeed(1).withGameObject()
-           // .Build();
-       //Instantiate(target);
+        TargetSpawnSkeleton();
        
 
     }
@@ -27,14 +28,27 @@ public class TargetSpawner : MonoBehaviour
    
     private void Update()
     {
-        throw new NotImplementedException();
+        // Spawn the enemies in waves
     }
     
-    private void TargetSpawn()
+    private void TargetSpawnSkeleton()
     {
-        int randomTarget = UnityEngine.Random.Range(0, bases.Length);
         Target newTarget = new Target.TargetBuilder().withHP(2).withSpeed(2).withScore(3)
-            .withGameObject(bases[randomTarget]).Build();
+            .withGameObject(Skeleton).BuildOrc();
+        Instantiate(newTarget, new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0f), Quaternion.identity);
+    }
+    
+    private void TargetSpawnCrab()
+    {
+        Target newTarget = new Target.TargetBuilder().withHP(2).withSpeed(2).withScore(3)
+            .withGameObject(Skeleton).BuildOrc();
+        Instantiate(newTarget, new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0f), Quaternion.identity);
+    }
+    
+    private void TargetSpawnOrc()
+    {
+        Target newTarget = new Target.TargetBuilder().withHP(2).withSpeed(2).withScore(3)
+            .withGameObject(Skeleton).BuildOrc();
         Instantiate(newTarget, new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0f), Quaternion.identity);
     }
 }
