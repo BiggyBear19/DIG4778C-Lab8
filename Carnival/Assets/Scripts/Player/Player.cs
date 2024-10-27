@@ -1,12 +1,16 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDataPersistence
 {
+    public Transform playerTransform;
+
     private Rigidbody2D rb;
     [SerializeField] private float speed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerTransform = GetComponent<Transform>();
+
         rb = gameObject.GetComponent<Rigidbody2D>();
         if (!rb)
         {
@@ -22,6 +26,15 @@ public class Player : MonoBehaviour
 
         Vector2 direction = new Vector2(xInput, yInput).normalized;
         rb.linearVelocity = direction * speed;
+    }
 
+    public void LoadData(TransformSaver data)
+    {
+        this.transform.position = data.playerTransform;
+    }
+
+    public void SaveData(ref TransformSaver data)
+    {
+        data.playerTransform = this.transform.position;
     }
 }
