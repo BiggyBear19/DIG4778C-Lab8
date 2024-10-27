@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class GameData
+public class TransformSaver
 {
-    public int deathCount;
+    public Vector3 playerTransform;
 
     //the values defined in this construtor will be the default values
     //When theres no data to load this is what will be loaded
-    public GameData()
+    public TransformSaver()
     {
-        this.deathCount = 0;
+        playerTransform = Vector3.zero;
     }
 }

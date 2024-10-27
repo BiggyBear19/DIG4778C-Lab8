@@ -4,15 +4,6 @@ using UnityEngine;
 
 public interface IDataPersistence 
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void LoadData(TransformSaver data); //not ref because it's only reading the data
+    void SaveData(ref TransformSaver data); //ref because it needs to modify the data
 }
