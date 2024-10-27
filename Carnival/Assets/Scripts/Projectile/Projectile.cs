@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     public ObjectPool objectPoolScript;
     public Rigidbody2D rgbd;
     public Transform firingPoint;
-    private float projectileSpeed = 15f;
+    private float projectileSpeed = 15.1f;
 
     private void Start()
     {

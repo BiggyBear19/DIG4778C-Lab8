@@ -9,7 +9,7 @@ public class ObjectPool : MonoBehaviour
     public List<GameObject> objectPool = new List<GameObject>();
     public GameObject projectilePrefab;
     public Transform firingPoint;
-    private float projectileSpeed = 8f;
+    private float projectileSpeed = 8.1f;
 
     private void Awake()
     {
