@@ -4,6 +4,8 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
+    
+    public event Action<int> OnEnemyKill;
 
     private void Awake()
     {
@@ -17,7 +19,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public event Action<int> OnEnemyKill;
+    
 
     public void EnemyKilled(int score)
     {

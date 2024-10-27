@@ -25,7 +25,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!instance)
+        if (!EventManager.instance)
         {
             Debug.Log("Instance of eventmanager isnt initialized");
         }
