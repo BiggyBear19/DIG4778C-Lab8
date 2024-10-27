@@ -56,9 +56,17 @@ public class Target : MonoBehaviour
        currentHealth -= dmgNum;
        if (currentHealth <= 0)
        {
-           Destroy(gameObject);
+           Debug.Log("I'm Dying AHHHH");
+           Die();
            //notify the observer 
        }
+   }
+
+   void Die()
+   {
+       Debug.Log("Welp, I died");
+       EventManager.instance.EnemyKilled(scoreValue);
+       Destroy(gameObject);
    }
 
    //Builder Function Below
