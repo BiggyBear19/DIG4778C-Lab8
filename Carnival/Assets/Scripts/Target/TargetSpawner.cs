@@ -8,9 +8,9 @@ using Random = System.Random;
 public class TargetSpawner : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public GameObject Orc;
-    public GameObject Skeleton;
-    public GameObject Crab;
+    public Sprite Red;
+    public Sprite Blue;
+    public Sprite Purple;
 
     private float spawn_timer = 2f;
     
@@ -18,7 +18,9 @@ public class TargetSpawner : MonoBehaviour
     void Start()
     {
 
-        TargetSpawnSkeleton();
+        SpawnRed();
+        SpawnBlue();
+        SpawnPurple();
        
 
     }
@@ -31,24 +33,21 @@ public class TargetSpawner : MonoBehaviour
         // Spawn the enemies in waves
     }
     
-    private void TargetSpawnSkeleton()
+    private void SpawnRed()
     {
-        Target newTarget = new Target.TargetBuilder().withHP(2).withSpeed(2).withScore(3)
-            .withGameObject(Skeleton).BuildOrc();
+        Target newTarget = new Target.TargetBuilder().BuildRed(Red);
         Instantiate(newTarget, new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0f), Quaternion.identity);
     }
     
-    private void TargetSpawnCrab()
+    private void SpawnBlue()
     {
-        Target newTarget = new Target.TargetBuilder().withHP(2).withSpeed(2).withScore(3)
-            .withGameObject(Skeleton).BuildOrc();
+        Target newTarget = new Target.TargetBuilder().BuildBlue(Blue);
         Instantiate(newTarget, new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0f), Quaternion.identity);
     }
     
-    private void TargetSpawnOrc()
+    private void SpawnPurple()
     {
-        Target newTarget = new Target.TargetBuilder().withHP(2).withSpeed(2).withScore(3)
-            .withGameObject(Skeleton).BuildOrc();
+        Target newTarget = new Target.TargetBuilder().BuildPurple(Purple);
         Instantiate(newTarget, new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), 0f), Quaternion.identity);
     }
 }
