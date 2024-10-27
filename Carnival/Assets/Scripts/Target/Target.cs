@@ -1,6 +1,8 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using Object = System.Object;
 
 public class Target : MonoBehaviour
 {
@@ -9,23 +11,41 @@ public class Target : MonoBehaviour
     public int scoreValue { get; private set; }
     
     public GameObject TargetGameObject { get; private set; }
-    
+    private Transform player;
+    private Vector2 moveDirection;
+    private Rigidbody2D rb;
+    int currentHealth;
 
    //Target Behavior
    // Setting up the GameManager for saving and 
    void Start()
    {
-       
+       currentHealth = health;
+       player = GameObject.FindGameObjectWithTag("Player").transform;
+       rb = gameObject.GetComponent<Rigidbody2D>();
+
    }
 
    void Update()
    {
-       
+       if (player)
+       {
+           Vector3 direction = (player.position - transform.position).normalized;
+           moveDirection = direction;
+       }
    }
 
-   private void OnTriggerEnter(Collider other)
+   private void FixedUpdate()
    {
-       if (other.tag == "Bullet")
+       if (player)
+       {
+           rb.linearVelocity = new Vector2(moveDirection.x, moveDirection.y) * speed;
+       }
+   }
+
+   private void OnTriggerEnter2D(Collider2D other)
+   {
+       if (other.CompareTag("Bullet"))
        {
            damage(1);
        }
@@ -33,8 +53,8 @@ public class Target : MonoBehaviour
 
    public void damage(int dmgNum)
    {
-       health -= dmgNum;
-       if (health < 0)
+       currentHealth -= dmgNum;
+       if (currentHealth <= 0)
        {
            Destroy(gameObject);
            //notify the observer 
