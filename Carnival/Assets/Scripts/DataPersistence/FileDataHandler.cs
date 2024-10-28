@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class FileDataHandler
 {
@@ -70,6 +71,60 @@ public class FileDataHandler
         catch (Exception e)
         {
             Debug.LogError("Error occured when trying to save data to file: " + fullPath + "\n" + e);
+        }
+    }
+
+    public int LoadScore()
+    {
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        int score = 0; 
+
+        if (File.Exists(fullPath))
+        {
+            try
+            {
+                
+                using (FileStream stream = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
+                using (BinaryReader reader = new BinaryReader(stream))
+                {
+                    score = reader.ReadInt32(); 
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error loading score from binary file: {fullPath}\n{e}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Binary score file not found at: {fullPath}");
+        }
+
+        return score;
+    }
+
+    public void SaveScore(int data)
+    {
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
+
+        try
+        {
+            string directoryPath = Path.GetDirectoryName(fullPath);
+            if (!string.IsNullOrEmpty(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            // Use BinaryWriter to save the score
+            using (FileStream stream = new FileStream(fullPath, FileMode.Create, FileAccess.Write))
+            using (BinaryWriter writer = new BinaryWriter(stream))
+            {
+                writer.Write(data); // Write the integer score to the binary file
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error saving score to binary file: {fullPath}\n{e}");
         }
     }
 }

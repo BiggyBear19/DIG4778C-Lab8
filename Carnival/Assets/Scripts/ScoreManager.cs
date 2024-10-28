@@ -6,11 +6,22 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
+    private FileDataHandler fileDataHandler;
 
     private int total = 0;
-
     public TMP_Text scoreText;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
+    void Start()
+    {
+        
+        string dataDirPath = Application.persistentDataPath; 
+        string dataFileName = "score.dat";
+        fileDataHandler = new FileDataHandler(dataDirPath, dataFileName);
+        
+        LoadScore();
+    }
+    
+  
     void Awake()
     {
         if (!instance)
@@ -38,7 +49,14 @@ public class ScoreManager : MonoBehaviour
 
     private void OnDisable()
     {
-        EventManager.instance.OnEnemyKill -= UpTheScore;
+        if (!EventManager.instance)
+        {
+            Debug.Log("Instance of eventmanager isnt initialized");
+        }
+        else
+        {
+            EventManager.instance.OnEnemyKill -= UpTheScore;
+        }
     }
 
     void UpTheScore(int score)
@@ -51,5 +69,21 @@ public class ScoreManager : MonoBehaviour
     {
         Debug.Log("Updating the UI " + total);
         scoreText.text = "Score: " + total;
+    }
+    
+
+    
+
+    public void LoadScore()
+    {
+        
+        total = fileDataHandler.LoadScore();
+        UpdateUI(); // Update the UI with the loaded score
+    }
+
+    public void SaveScore()
+    {
+        
+        fileDataHandler.SaveScore(total);
     }
 }

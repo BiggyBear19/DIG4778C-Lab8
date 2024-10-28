@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = System.Object;
 
-public class Target : MonoBehaviour
+public class Target : MonoBehaviour, IDataPersistence
 {
     public int health { get; private set; }
     public float speed { get; private set; }
@@ -67,6 +67,19 @@ public class Target : MonoBehaviour
        Debug.Log("Welp, I died");
        EventManager.instance.EnemyKilled(scoreValue);
        Destroy(gameObject);
+   }
+
+   public void LoadData(TransformSaver data)
+   {
+       if (data.enemyTransform.Count > 0)
+       {
+           this.transform.position = data.enemyTransform[0];
+       }
+   }
+
+   public void SaveData(ref TransformSaver data)
+   {
+       data.enemyTransform.Add(this.transform.position);
    }
 
    //Builder Function Below

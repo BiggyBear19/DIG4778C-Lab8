@@ -53,6 +53,7 @@ public class DataPersistenceManager : MonoBehaviour
     {
         //load saved data from a file using data handler
         this.transformSaver = dataHandler.Load();
+        
 
         //if no data loaded, make a new game
         if (this.transformSaver == null)
